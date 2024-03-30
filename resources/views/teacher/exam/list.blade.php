@@ -4,9 +4,9 @@
 @endsection
 @section('header')
     <div class="w-100 flex justify-between">
-        <h3 class="py-2.5">Grade List</h3>
+        <h3 class="py-2.5">Exam List</h3>
         <a href="{{ route('teacher.exam.add') }}"
-           class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+           class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
             Create
         </a>
     </div>
@@ -30,6 +30,7 @@
                         <th scope="col" class="px-6 py-3">
                             Edit/Delete
                         </th>
+                        <th scope="col" class="px-6 py-3"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,16 +43,22 @@
                                 {{ $exam->name }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $exam->date }}
+                                {{ \Carbon\Carbon::parse($exam->date)->format('d/m/Y H:i') }}
                             </td>
                             <td class="px-6 py-4">
-                                <a href="{{ route('teacher.grade.edit', $exam->id) }}"
+                                <a href="{{ route('teacher.exam.edit', $exam->id) }}"
                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     Edit
                                 </a>
                                 <a href="{{ route('teacher.exam.delete', $exam->id) }}"
                                    class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                                     Delete
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ route('teacher.exam.student.list', $exam->id) }}"
+                                   class="text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-600">
+                                    See Students
                                 </a>
                             </td>
                         </tr>

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ExamController;
+use App\Http\Controllers\ExamStudentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\GradeController;
@@ -46,6 +48,7 @@ Route::prefix('teacher')->group(function (){
         Route::get('/dashboard',[TeacherController::class, 'dashboard'])->name('teacher.dashboard');
 
         Route::prefix('/student')->group(function (){
+            Route::redirect('', '/teacher/student/list');
             Route::get('/list', [TeacherController::class, 'student'])->name('teacher.student');
 
             Route::get('/add', [TeacherController::class, 'student_create'])->name('teacher.student.add');
@@ -68,6 +71,25 @@ Route::prefix('teacher')->group(function (){
             Route::post('/edit/{id}', [GradeController::class, 'update']);
 
             Route::get('/delete/{id}', [GradeController::class, 'destroy'])->name('teacher.grade.delete');
+        });
+
+        Route::prefix('/exam')->group(function (){
+            Route::redirect('', '/teacher/exam/list');
+            Route::get('/list', [ExamController::class, 'index'])->name('teacher.exam');
+
+            Route::get('/add', [ExamController::class, 'create'])->name('teacher.exam.add');
+            Route::post('/add', [ExamController::class, 'store']);
+
+            Route::get('/edit/{id}', [ExamController::class, 'edit'])->name('teacher.exam.edit');
+            Route::post('/edit/{id}', [ExamController::class, 'update']);
+
+            Route::get('/delete/{id}', [ExamController::class, 'destroy'])->name('teacher.exam.delete');
+
+            Route::prefix('/student')->group(function (){
+                Route::redirect('','teacher/exam/student/list');
+                Route::get('/list/{examid}', [ExamStudentController::class, 'index'])->name('teacher.exam.student.list');
+                Route::post('/edit/{examid}', [ExamStudentController::class, 'edit'])->name('teacher.exam.student.edit');
+            });
         });
     });
 });

@@ -56,7 +56,7 @@ class TeacherController extends Controller
         $students = User::all();
 
         return view('teacher.student.list')
-            ->with('students', $students);
+            ->with('student', $students);
     }
 
     public function student_create()
