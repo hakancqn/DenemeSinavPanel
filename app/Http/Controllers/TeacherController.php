@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ExamStudent;
 use App\Models\Grade;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -56,7 +57,7 @@ class TeacherController extends Controller
         $students = User::all();
 
         return view('teacher.student.list')
-            ->with('student', $students);
+            ->with('students', $students);
     }
 
     public function student_create()
@@ -131,5 +132,13 @@ class TeacherController extends Controller
         $student->forceDelete();
 
         return redirect()->route('teacher.student');
+    }
+
+    public function student_exam($id)
+    {
+        $examstudents = ExamStudent::where('student_id', $id)->get();
+
+        return view('teacher.student.exam.list')
+            ->with('examstudents', $examstudents);
     }
 }

@@ -5,10 +5,11 @@
 @section('header')
     <div class="w-100 flex justify-between">
         <h3 class="py-2.5">Student List</h3>
-        <a href="{{ route('teacher.student.add') }}"
+        {{--<a href="{{ route('teacher.student.add') }}"
            class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
             Create
-        </a>
+        </a>--}}
+        <h4 class="py-2.5">{{ $grade->name }}</h4>
     </div>
 @endsection
 @section('content')
@@ -33,9 +34,6 @@
                             School Number
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Grade
-                        </th>
-                        <th scope="col" class="px-6 py-3">
                             Edit/Delete
                         </th>
                         <th scope="col" class="px-6 py-3"></th>
@@ -58,9 +56,6 @@
                                 {{ $student->school_no }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $student->getGrade->name }}
-                            </td>
-                            <td class="px-6 py-4">
                                 <a href="{{ route('teacher.student.edit', $student->id) }}"
                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     Edit
@@ -73,7 +68,7 @@
                             <td>
                                 <a href="{{ route('teacher.student.exam.list', $student->id) }}"
                                    class="text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-600">
-                                    See Exams
+                                    See All Exams
                                 </a>
                             </td>
                         </tr>

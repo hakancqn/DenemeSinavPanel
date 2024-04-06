@@ -27,6 +27,7 @@
                         <th scope="col" class="px-6 py-3">
                             Edit/Delete
                         </th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -46,6 +47,12 @@
                                 <a href="{{ route('teacher.grade.delete', $grade->id) }}"
                                    class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                                     Delete
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ route('teacher.grade.student.list', $grade->id) }}"
+                                   class="text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-600">
+                                    See Students
                                 </a>
                             </td>
                         </tr>

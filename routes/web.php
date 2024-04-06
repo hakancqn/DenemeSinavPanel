@@ -58,6 +58,12 @@ Route::prefix('teacher')->group(function (){
             Route::post('/edit/{id}', [TeacherController::class, 'student_update']);
 
             Route::get('/delete/{id}', [TeacherController::class, 'student_destroy'])->name('teacher.student.delete');
+
+
+            Route::prefix('/exam')->group(function (){
+                Route::redirect('','teacher/student/exam/list');
+                Route::get('/list/{studentid}', [TeacherController::class, 'student_exam'])->name('teacher.student.exam.list');
+            });
         });
 
         Route::prefix('/grade')->group(function (){
@@ -71,6 +77,8 @@ Route::prefix('teacher')->group(function (){
             Route::post('/edit/{id}', [GradeController::class, 'update']);
 
             Route::get('/delete/{id}', [GradeController::class, 'destroy'])->name('teacher.grade.delete');
+
+            Route::get('/student/{id}', [GradeController::class, 'student'])->name('teacher.grade.student.list');
         });
 
         Route::prefix('/exam')->group(function (){

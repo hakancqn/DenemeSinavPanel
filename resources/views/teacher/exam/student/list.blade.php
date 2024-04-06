@@ -93,35 +93,43 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function updateExamStudent() {
-            console.log(getVeri());
-
-            $.ajax({
-                method: 'POST',
-                url: '{{ route("teacher.exam.student.edit", $exams[0]->exam_id) }}',
-                data: getVeri(),
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                },
-                success: function(response) {
-                    // Başarılı bir yanıt alındığında burası çalışır
-                    if (response.message) {
-                        Swal.fire({
-                            title: "Success",
-                            text: response.message,
-                            icon: "success"
-                        }).then((response) =>{
-                            location.reload();
-                        });
-                    }
-                },
-                error: function(xhr, status, error) {
-                    // Hata oluştuğunda burası çalışır
-                    if (xhr.responseJSON && xhr.responseJSON.error) {
-                        alert(xhr.responseJSON.error);
-                    } else {
-                        alert('Error occurred while updating exam student list: ' + error);
-                    }
-                },
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You are going to update all of the students notes.",
+                showCancelButton: true,
+                confirmButtonText: "Yes, update",
+                icon: "question",
+            }).then((result) => {
+                if(result.isConfirmed){
+                    $.ajax({
+                        method: 'POST',
+                        url: '{{ route("teacher.exam.student.edit", $exams[0]->exam_id) }}',
+                        data: getVeri(),
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                        success: function(response) {
+                            // Başarılı bir yanıt alındığında burası çalışır
+                            if (response.message) {
+                                Swal.fire({
+                                    title: "Success",
+                                    text: response.message,
+                                    icon: "success"
+                                }).then((response) =>{
+                                    location.reload();
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            // Hata oluştuğunda burası çalışır
+                            if (xhr.responseJSON && xhr.responseJSON.error) {
+                                alert(xhr.responseJSON.error);
+                            } else {
+                                alert('Error occurred while updating exam student list.blade.php: ' + error);
+                            }
+                        },
+                    });
+                }
             });
         }
 

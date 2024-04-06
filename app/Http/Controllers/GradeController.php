@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grade;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -74,5 +75,13 @@ class GradeController extends Controller
         $grade->forceDelete();
 
         return redirect()->route('teacher.grade');
+    }
+
+    public function student($grade_id)
+    {
+        $grade = Grade::where('id', $grade_id)->first();
+        $students = User::where('grade_id', $grade_id)->get();
+
+        return view('teacher.grade.student.list')->with('students', $students)->with('grade', $grade);
     }
 }
