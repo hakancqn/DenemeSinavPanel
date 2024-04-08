@@ -96,6 +96,8 @@ Route::prefix('teacher')->group(function (){
             Route::prefix('/student')->group(function (){
                 Route::redirect('','teacher/exam/student/list');
                 Route::get('/list/{examid}', [ExamStudentController::class, 'index'])->name('teacher.exam.student.list');
+                Route::get('/add/{examid}', [ExamStudentController::class, 'create'])->name('teacher.exam.student.create');
+                Route::post('/add/{examid}', [ExamStudentController::class, 'store']);
                 Route::post('/edit/{examid}', [ExamStudentController::class, 'edit'])->name('teacher.exam.student.edit');
             });
         });
