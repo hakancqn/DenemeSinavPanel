@@ -8,7 +8,7 @@
         <!-- Email Address -->
         <div>
             <x-input-label for="id_no" :value="__('Kimlik Numarası')" />
-            <x-text-input id="id_no" class="block mt-1 w-full" type="text" name="id_no" :value="old('id_no')" required autofocus autocomplete="username" />
+            <x-text-input id="id_no" class="block mt-1 w-full" type="text" name="id_no" :value="old('id_no')" required autofocus autocomplete="id_no" />
             <x-input-error :messages="$errors->get('id_no')" class="mt-2" />
         </div>
 

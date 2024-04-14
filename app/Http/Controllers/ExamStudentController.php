@@ -6,6 +6,7 @@ use App\Models\Exam;
 use App\Models\ExamStudent;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ExamStudentController extends Controller
 {
@@ -75,19 +76,17 @@ class ExamStudentController extends Controller
         return response()->json(['message' => 'İşlem başarıyla tamamlandı.'], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, ExamStudent $examStudent)
-    {
-        //
+    public function student_exam_past(){
+        $student = Auth::guard()->user();
+        $student_id = $student->id;
+        $results = ExamStudent::where('student_id', $student_id)->get();
+        return view('student.exam.past')
+            ->with('exams', $results);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ExamStudent $examStudent)
-    {
-        //
+    public function student_exam_past_results($id){
+        $exam = ExamStudent::where('id', $id)->first();
+        return view('student.exam.past_result')
+            ->with('exam', $exam);
     }
 }
