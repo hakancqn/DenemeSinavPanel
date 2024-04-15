@@ -32,6 +32,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('/exam')->group(function () {
         Route::get('/past', [ExamStudentController::class, 'student_exam_past'])->name('student.exam.past.list');
         Route::get('/result/{id}', [ExamStudentController::class, 'student_exam_past_results'])->name('student.exam.past.result');
+
+        Route::get('/future', [ExamStudentController::class, 'student_exam_future'])->name('student.exam.future.list');
+
+        Route::post('/create/request', [ExamStudentController::class, 'student_create_exam_request'])->name('student.create.exam.request');
     });
 });
 

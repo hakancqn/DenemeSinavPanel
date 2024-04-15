@@ -13,4 +13,9 @@ class Exam extends Model
     {
         return $this->hasOne(User::class);
     }
+
+    public function exam_request()
+    {
+        return $this->hasMany(ExamRequest::class);
+    }
 }

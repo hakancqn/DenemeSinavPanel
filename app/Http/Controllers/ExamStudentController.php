@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exam;
+use App\Models\ExamRequest;
 use App\Models\ExamStudent;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ExamStudentController extends Controller
@@ -88,5 +90,38 @@ class ExamStudentController extends Controller
         $exam = ExamStudent::where('id', $id)->first();
         return view('student.exam.past_result')
             ->with('exam', $exam);
+    }
+
+    public function student_exam_future(){
+        $today_date = Carbon::now();
+        $student = Auth::guard()->user();
+        $exam_requests = ExamRequest::where('student_id', $student->id)->get();
+        $future_exams = Exam::where('date', '>=', $today_date)->get();
+        $filtered_exams = [];
+
+        foreach ($future_exams as $future_exam) {
+            $include_exam = true;
+            foreach ($exam_requests as $exam_request) {
+                if ($future_exam->id == $exam_request->exam_id && $student->id == $exam_request->student_id) {
+                    $include_exam = false;
+                    break; // İç içe döngüyü sonlandır
+                }
+            }
+            if ($include_exam) {
+                $filtered_exams[] = $future_exam;
+            }
+        }
+
+        return view('student.exam.future')
+            ->with('future_exams', $filtered_exams);
+    }
+
+    public function student_create_exam_request(Request $request){
+        $student = Auth::guard()->user();
+        ExamRequest::create([
+            'student_id' => $student->id,
+            'exam_id' => $request->exam_id,
+        ]);
+        return redirect()->route('student.exam.future.list');
     }
 }

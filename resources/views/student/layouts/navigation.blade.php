@@ -30,7 +30,7 @@
 
                         <!-- Dropdown menu -->
                         <div x-show="open" @click.away="open = false" class="absolute mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg">
-                            <a href="{{route('student.dashboard')}}" class="block py-2 pl-4 hover:bg-gray-100 dark:hover:bg-gray-900 text-white rounded-md text-sm">
+                            <a href="{{route('student.exam.future.list')}}" class="block py-2 pl-4 hover:bg-gray-100 dark:hover:bg-gray-900 text-white rounded-md text-sm">
                                 Future Exams
                             </a>
                             <a href="{{route('student.exam.past.list')}}" class="block py-2 pl-4 hover:bg-gray-100 dark:hover:bg-gray-900 text-white rounded-md text-sm">
