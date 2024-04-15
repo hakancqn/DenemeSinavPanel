@@ -3,7 +3,7 @@
 @endsection
 @section('header')
     <div class="w-100 flex justify-between">
-        <h3 class="py-2.5">Exam Result List</h3>
+        <h3 class="py-2.5">Past Exam List</h3>
     </div>
 @endsection
 @section('content')

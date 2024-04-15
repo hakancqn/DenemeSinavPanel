@@ -3,7 +3,7 @@
 @endsection
 @section('header')
     <div class="w-100 flex justify-between">
-        <h3 class="py-2.5">Exam Student List</h3>
+        <h3 class="py-2.5">Past Exam Result</h3>
         <h3 class="py-2.5">{{ $exam->exam->name }}</h3>
     </div>
 @endsection
