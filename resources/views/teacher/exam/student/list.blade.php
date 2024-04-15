@@ -5,7 +5,7 @@
     <div class="w-100 flex justify-between">
         <h3 class="py-2.5">Exam Student List</h3>
         <div>
-            <a href="{{ route('teacher.exam.student.create', $exams->first()->id) }}"
+            <a href="{{ route('teacher.exam.student.create', $exams->first()->exam->id) }}"
                     class="me-3 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-500 font-medium rounded-lg text-sm px-5 py-3 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                 Add
             </a>
