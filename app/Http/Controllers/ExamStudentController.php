@@ -93,7 +93,7 @@ class ExamStudentController extends Controller
     }
 
     public function student_exam_future(){
-        $today_date = Carbon::now();
+        $today_date = Carbon::tomorrow();
         $student = Auth::guard()->user();
         $exam_requests = ExamRequest::where('student_id', $student->id)->get();
         $future_exams = Exam::where('date', '>=', $today_date)->get();

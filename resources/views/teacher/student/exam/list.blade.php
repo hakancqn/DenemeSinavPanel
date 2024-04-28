@@ -9,13 +9,14 @@
            class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
             Create
         </a>--}}
-        <h4 class="py-2.5">{{ $examstudents->first()->student->name }}</h4>
+        <h4 class="py-2.5">{{ $student->name }}</h4>
     </div>
 @endsection
 @section('content')
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg {{ count($examstudents) == 0 ? 'bg-gray-800' : null }}">
+                @if(count($examstudents) > 0)
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -46,6 +47,11 @@
                     @endforeach
                     </tbody>
                 </table>
+                @else
+                    <div class="my-5 px-6 text-white">
+                        <h5>There is no exams for now.</h5>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

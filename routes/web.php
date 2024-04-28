@@ -69,6 +69,12 @@ Route::prefix('teacher')->group(function (){
             Route::prefix('/exam')->group(function (){
                 Route::redirect('','teacher/student/exam/list');
                 Route::get('/list/{studentid}', [TeacherController::class, 'student_exam'])->name('teacher.student.exam.list');
+                Route::prefix('/request')->group(function (){
+                    Route::redirect('','teacher/student/exam/request/list');
+                    Route::get('/list', [TeacherController::class, 'student_exam_request'])->name('teacher.student.exam.request.list');
+                    Route::get('/accept/{requestid}', [TeacherController::class, 'student_exam_request_accept'])->name('teacher.student.exam.request.accept');
+                    Route::get('/deny/{requestid}', [TeacherController::class, 'student_exam_request_deny'])->name('teacher.student.exam.request.deny');
+                });
             });
         });
 
@@ -89,7 +95,10 @@ Route::prefix('teacher')->group(function (){
 
         Route::prefix('/exam')->group(function (){
             Route::redirect('', '/teacher/exam/list');
-            Route::get('/list', [ExamController::class, 'index'])->name('teacher.exam');
+            Route::prefix('/list')->group(function (){
+                Route::get('/future', [ExamController::class, 'future_exam'])->name('teacher.exam.future.list');
+                Route::get('/past', [ExamController::class, 'past_exam'])->name('teacher.exam.past.list');
+            });
 
             Route::get('/add', [ExamController::class, 'create'])->name('teacher.exam.add');
             Route::post('/add', [ExamController::class, 'store']);

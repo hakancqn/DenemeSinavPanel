@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Exam;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class ExamController extends Controller
 {
@@ -13,6 +14,24 @@ class ExamController extends Controller
     public function index()
     {
         $exams = Exam::all();
+
+        return view('teacher.exam.list')
+            ->with('exams', $exams);
+    }
+
+    public function future_exam()
+    {
+        $time = Carbon::tomorrow();
+        $exams = Exam::where('date', '>=', $time)->get();
+
+        return view('teacher.exam.list')
+            ->with('exams', $exams);
+    }
+
+    public function past_exam()
+    {
+        $time = Carbon::today();
+        $exams = Exam::where('date', '<=', $time)->get();
 
         return view('teacher.exam.list')
             ->with('exams', $exams);

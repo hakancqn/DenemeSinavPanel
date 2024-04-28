@@ -21,9 +21,31 @@
                     <x-nav-link :href="route('teacher.grade')" :active="request()->routeIs('teacher.grade')">
                         {{ __('Grades') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('teacher.exam')" :active="request()->routeIs('teacher.exam')">
+                    <x-nav-link :href="route('teacher.exam.future.list')" :active="request()->routeIs('teacher.exam.future.list')">
                         {{ __('Exams') }}
                     </x-nav-link>
+                    <!-- Exams Dropdown -->
+                    <div x-data="{ open: false }" class="relative hidden sm:flex sm:items-center sm:ms-10">
+                        <div class="relative z-10">
+                            <button @click="open = !open" class="flex items-center space-x-1 mt-0.5 text-gray-800 dark:text-gray-400">
+                                <span class="text-sm">Exams</span>
+                                <!-- Arrow icon -->
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" :class="{ 'rotate-180': open }">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6.293 7.293a1 1 0 011.414 0L10 10.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/>
+                                </svg>
+                            </button>
+
+                            <!-- Dropdown menu -->
+                            <div x-show="open" @click.away="open = false" class="absolute mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg">
+                                <a href="{{route('teacher.exam.future.list')}}" class="block py-2 pl-4 hover:bg-gray-100 dark:hover:bg-gray-900 text-white rounded-md text-sm">
+                                    Future Exams
+                                </a>
+                                <a href="{{route('teacher.exam.past.list')}}" class="block py-2 pl-4 hover:bg-gray-100 dark:hover:bg-gray-900 text-white rounded-md text-sm">
+                                    Past Exams
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

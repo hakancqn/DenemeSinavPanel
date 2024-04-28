@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ExamRequest;
 use App\Models\ExamStudent;
 use App\Models\Grade;
 use App\Models\User;
@@ -137,8 +138,31 @@ class TeacherController extends Controller
     public function student_exam($id)
     {
         $examstudents = ExamStudent::where('student_id', $id)->get();
+        $student = User::where('id', $id)->first();
 
         return view('teacher.student.exam.list')
-            ->with('examstudents', $examstudents);
+            ->with('examstudents', $examstudents)
+            ->with('student', $student);
+    }
+
+    public function student_exam_request(){
+        $requests = ExamRequest::where('accepted', 0)->where('denied', 0)->get();
+
+        return view('teacher.student.exam.request.list')
+            ->with('requests', $requests);
+    }
+
+    public function student_exam_request_accept($requestid){
+        $request = ExamRequest::where('id', $requestid)->first();
+        $request->accepted = 1;
+        $request->save();
+        return redirect()->route('teacher.student.exam.request.list');
+    }
+
+    public function student_exam_request_deny($requestid){
+        $request = ExamRequest::where('id', $requestid)->first();
+        $request->denied = 1;
+        $request->save();
+        return redirect()->route('teacher.student.exam.request.list');
     }
 }
